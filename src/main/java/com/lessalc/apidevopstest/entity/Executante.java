@@ -2,6 +2,7 @@ package com.lessalc.apidevopstest.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,6 +30,7 @@ public class Executante {
     @Column(name = "NOME")
     private String nome;
 
+    @JsonIgnoreProperties("idExecutante")
     @OneToMany(mappedBy = "idExecutante")
     private List<Servico> servicos;
 
