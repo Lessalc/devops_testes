@@ -83,6 +83,16 @@ jobs:
       contents: read
       packages: write
 
+    services:
+      mysql:
+        image: mysql:latest
+        env:
+          MYSQL_ROOT_PASSWORD: Root1234
+          MYSQL_DATABASE: gerenciamento_servicos
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
     steps:
       - name: Checkout do código
         uses: actions/checkout@v3
