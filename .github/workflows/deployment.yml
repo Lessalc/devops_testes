@@ -10,7 +10,7 @@ jobs:
       mysql:
         image: mysql:latest
         env:
-          MYSQL_ROOT_PASSWORD: Root1234
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_PASSWORD  }}
           MYSQL_DATABASE: gerenciamento_servicos
         ports:
           - 3306:3306
@@ -27,7 +27,9 @@ jobs:
           java-version: '17'
 
       - name: Executar testes unitários
-        run: mvn test
+        run: |
+          export MYSQL_PASSWORD="${{ secrets.MYSQL_PASSWORD }}"
+          mvn test
 
       - name: Generate JaCoco Badge
         id: jacoco
@@ -52,7 +54,7 @@ jobs:
       mysql:
         image: mysql:latest
         env:
-          MYSQL_ROOT_PASSWORD: Root1234
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_PASSWORD  }}
           MYSQL_DATABASE: gerenciamento_servicos
         ports:
           - 3306:3306
@@ -70,7 +72,9 @@ jobs:
           package: '*.jar'
 
       - name: Build com Maven
-        run: mvn package
+        run: |
+          export MYSQL_PASSWORD="${{ secrets.MYSQL_PASSWORD }}"
+          mvn package
 
 
   publish:
@@ -85,7 +89,7 @@ jobs:
       mysql:
         image: mysql:latest
         env:
-          MYSQL_ROOT_PASSWORD: Root1234
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_PASSWORD  }}
           MYSQL_DATABASE: gerenciamento_servicos
         ports:
           - 3306:3306
@@ -101,6 +105,8 @@ jobs:
           java-version: '17'
           package: '*.jar'
       - name: Publish package
-        run: mvn --batch-mode deploy
+        run: |
+          export MYSQL_PASSWORD="${{ secrets.MYSQL_PASSWORD }}"
+          mvn --batch-mode deploy
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
