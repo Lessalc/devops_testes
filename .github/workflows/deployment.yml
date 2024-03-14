@@ -1,8 +1,6 @@
 name: Deploy Actions
 on:
   push:
-    branches:
-      - develop
 
 jobs:
   unit-test:
