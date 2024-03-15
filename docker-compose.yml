@@ -1,0 +1,32 @@
+version: "3.8"
+services:
+  mysqldb:
+    container_name: mysqldb_gerenciamento_servicos
+    image: mysql:8.0
+    restart: always
+    networks:
+      - gerenciamento-net
+    environment:
+      MYSQL_DATABASE: gerenciamento_servicos
+      MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_PASSWORD  }}
+
+  pedidos_service:
+    build: .
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - gerenciamento-net
+    depends_on:
+      - mysqldb
+    environment:
+      MYSQL_HOST: mysqldb
+      MYSQL_USER: root
+      MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD  }}
+      MYSQL_DB: gerenciamento_servicos
+    working_dir: /usr/src/apidevopstest
+    command: /usr/src/apidevopstest/app-startup.sh
+
+networks:
+  gerenciamento-net:
+    driver: bridge

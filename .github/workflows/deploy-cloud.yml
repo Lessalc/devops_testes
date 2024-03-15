@@ -1,0 +1,27 @@
+name: Deploy Actions
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  deploy-aws:
+    if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'master'
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install SSH key
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Deploy to EC2
+        run: |
+          ssh -o StrictHostKeyChecking=no ec2-user@75.101.230.25 << 'EOF'
+            git clone https://github.com/seu-usuario/seu-repositorio.git
+            cd seu-repositorio
+            docker-compose up -d
+          EOF
