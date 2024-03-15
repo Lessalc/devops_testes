@@ -8,7 +8,7 @@ on:
 
 jobs:
   deploy-aws:
-    
+
     runs-on: ubuntu-latest
 
     steps:
@@ -18,7 +18,7 @@ jobs:
       - name: Install SSH key
         uses: webfactory/ssh-agent@v0.5.3
         with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY2 }}
 
       - name: Deploy to EC2
         run: |
