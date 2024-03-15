@@ -16,4 +16,8 @@ public class ExecutanteUseCases {
     public List<Executante> listarTodos(){
         return repository.findAll();
     }
+
+    public int verificaQuantidadeServicos(Executante executante){
+        return executante.getServicos().size();
+    }
 }
