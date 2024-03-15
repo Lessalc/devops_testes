@@ -18,6 +18,7 @@ public class ExecutanteUseCases {
     }
 
     public int verificaQuantidadeServicos(Executante executante){
+        // Apenas para push
         return executante.getServicos().size();
     }
 }
