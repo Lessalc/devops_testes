@@ -23,7 +23,7 @@ jobs:
       - name: Deploy to EC2
         run: |
           ssh -o StrictHostKeyChecking=no ec2-user@75.101.230.25 << 'EOF'
-            git clone https://github.com/seu-usuario/seu-repositorio.git
+            git clone https://github.com/Lessalc/devops_testes.git
             cd seu-repositorio
             docker-compose up -d
           EOF
