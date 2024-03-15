@@ -20,7 +20,7 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY2 }}
 
-      - name: Deploy to EC2
+      - name: Deploy em EC2 existente
         run: |
           ssh -o StrictHostKeyChecking=no ec2-user@75.101.230.25 << 'EOF'
             git clone https://github.com/Lessalc/devops_testes.git
