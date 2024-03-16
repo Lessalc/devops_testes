@@ -21,7 +21,7 @@ jobs:
 
       - name: Deploy em EC2 existente
         run: |
-          ssh -o StrictHostKeyChecking=no ec2-user@75.101.230.25 << 'EOF'
+          ssh -o StrictHostKeyChecking=no ec2-user@52.90.161.229 << 'EOF'
             git clone https://github.com/Lessalc/devops_testes.git
             cd devops_testes/
             docker-compose up -d
