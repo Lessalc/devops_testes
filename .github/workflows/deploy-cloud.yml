@@ -1,11 +1,12 @@
 name: Deploy Actions
 on:
   pull_request:
+    branches:
+      - master
     types: [closed]
 
 jobs:
   deploy-aws:
-    if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'master'
 
     runs-on: ubuntu-latest
 
@@ -16,12 +17,12 @@ jobs:
       - name: Install SSH key
         uses: webfactory/ssh-agent@v0.5.3
         with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY2 }}
 
-      - name: Deploy to EC2
+      - name: Deploy em EC2 existente
         run: |
           ssh -o StrictHostKeyChecking=no ec2-user@75.101.230.25 << 'EOF'
-            git clone https://github.com/seu-usuario/seu-repositorio.git
-            cd seu-repositorio
+            git clone https://github.com/Lessalc/devops_testes.git
+            cd devops_testes/
             docker-compose up -d
           EOF
