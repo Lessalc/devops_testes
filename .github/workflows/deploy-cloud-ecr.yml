@@ -27,15 +27,19 @@ jobs:
           docker build -t apidevopstest .
           docker tag apidevopstest:latest 992382682432.dkr.ecr.us-east-1.amazonaws.com/lessalc-private-repository:latest
 
-      - name: Log in to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v2
+      - name: Configurando credenciais AWS
+        uses: aws-actions/configure-aws-credentials@v2
         with:
-          registry: 992382682432.dkr.ecr.us-east-1.amazonaws.com
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      - name: Push Docker Image to ECR
+      - name: Log in to Amazon ECR
+          id: login-ecr
+          uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build, tag e push da imagem no Amazon ECR
         run: |
+          docker build -t apidevopstest .
+          docker tag apidevopstest:latest 992382682432.dkr.ecr.us-east-1.amazonaws.com/lessalc-private-repository:latest
           docker push 992382682432.dkr.ecr.us-east-1.amazonaws.com/lessalc-private-repository:latest
