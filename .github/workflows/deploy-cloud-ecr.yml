@@ -25,7 +25,7 @@ jobs:
       - name: Build Docker Image
         run: |
           docker build -t apidevopstest .
-          docker tag apidevopstest:latest 992382682432.dkr.ecr.us-east-1.amazonaws.com/lessalc-private-repository:latest
+          docker tag apidevopstest:latest ${{ secrets.URI_REPOSITORY }}:latest
 
       - name: Configurando credenciais AWS
         uses: aws-actions/configure-aws-credentials@v2
@@ -41,5 +41,5 @@ jobs:
       - name: Build, tag e push da imagem no Amazon ECR
         run: |
           docker build -t apidevopstest .
-          docker tag apidevopstest:latest 992382682432.dkr.ecr.us-east-1.amazonaws.com/lessalc-private-repository:latest
-          docker push 992382682432.dkr.ecr.us-east-1.amazonaws.com/lessalc-private-repository:latest
+          docker tag apidevopstest:latest ${{ secrets.URI_REPOSITORY }}:latest
+          docker push ${{ secrets.URI_REPOSITORY }}:latest
