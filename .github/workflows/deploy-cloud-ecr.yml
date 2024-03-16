@@ -24,7 +24,7 @@ jobs:
 
       - name: Build Docker Image
         run: |
-          docker build -t apidevopstest
+          docker build -t apidevopstest .
           docker tag apidevopstest:latest 992382682432.dkr.ecr.us-east-1.amazonaws.com/lessalc-public-repository:latest
 
       - name: Log in to Amazon ECR
