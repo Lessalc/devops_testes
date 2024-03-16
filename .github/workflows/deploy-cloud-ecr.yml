@@ -25,7 +25,7 @@ jobs:
       - name: Build Docker Image
         run: |
           docker build -t apidevopstest .
-          docker tag apidevopstest:latest 992382682432.dkr.ecr.us-east-1.amazonaws.com/lessalc-public-repository:latest
+          docker tag apidevopstest:latest 992382682432.dkr.ecr.us-east-1.amazonaws.com/lessalc-private-repository:latest
 
       - name: Log in to Amazon ECR
         id: login-ecr
@@ -37,4 +37,4 @@ jobs:
 
       - name: Push Docker Image to ECR
         run: |
-          docker push 992382682432.dkr.ecr.us-east-1.amazonaws.com/lessalc-public-repository:latest
+          docker push 992382682432.dkr.ecr.us-east-1.amazonaws.com/lessalc-private-repository:latest
