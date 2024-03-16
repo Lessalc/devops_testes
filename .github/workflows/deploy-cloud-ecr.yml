@@ -1,0 +1,40 @@
+name: Build and Push Docker Image to ECR
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [closed]
+
+jobs:
+  deploy-aws-ecr:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Configurar o JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'adopt'
+          java-version: '17'
+          package: '*.jar'
+
+      - name: Build Docker Image
+        run: |
+          docker build -t apidevopstest
+          docker tag apidevopstest:latest 992382682432.dkr.ecr.us-east-1.amazonaws.com/lessalc-public-repository:latest
+
+      - name: Log in to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+        with:
+          registry: 992382682432.dkr.ecr.us-east-1.amazonaws.com
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Push Docker Image to ECR
+        run: |
+          docker push 992382682432.dkr.ecr.us-east-1.amazonaws.com/lessalc-public-repository:latest
