@@ -15,18 +15,6 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Configurar o JDK 17
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'adopt'
-          java-version: '17'
-          package: '*.jar'
-
-      - name: Build Docker Image
-        run: |
-          docker build -t apidevopstest .
-          docker tag apidevopstest:latest ${{ secrets.URI_REPOSITORY }}:latest
-
       - name: Configurando credenciais AWS
         uses: aws-actions/configure-aws-credentials@v2
         with:
