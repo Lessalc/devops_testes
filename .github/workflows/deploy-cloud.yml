@@ -1,29 +1,28 @@
-#name: Deploy Actions
-#on:
-#  push:
-#    branches:
-#      - master
-#  pull_request:
-#    types: [closed]
-#
-#jobs:
-#  deploy-aws:
-#
-#    runs-on: ubuntu-latest
-#
-#    steps:
-#      - name: Checkout Repository
-#        uses: actions/checkout@v3
-#
-#      - name: Install SSH key
-#        uses: webfactory/ssh-agent@v0.5.3
-#        with:
-#          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY2 }}
-#
-#      - name: Deploy em EC2 existente
-#        run: |
-#          ssh -o StrictHostKeyChecking=no ec2-user@75.101.230.25 << 'EOF'
-#            git clone https://github.com/Lessalc/devops_testes.git
-#            cd devops_testes/
-#            docker-compose up -d
-#          EOF
+name: Deploy Actions
+on:
+  pull_request:
+    branches:
+      - master
+    types: [closed]
+
+jobs:
+  deploy-aws:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install SSH key
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY2 }}
+
+      - name: Deploy em EC2 existente
+        run: |
+          ssh -o StrictHostKeyChecking=no ec2-user@52.90.161.229 << 'EOF'
+            git clone https://github.com/Lessalc/devops_testes.git
+            cd devops_testes/
+            docker-compose up -d
+          EOF
